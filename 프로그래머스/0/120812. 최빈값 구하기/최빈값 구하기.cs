@@ -1,32 +1,27 @@
 using System;
+using System.Linq;
 
 public class Solution {
     public int solution(int[] array) {
-        int answer = 0;
-        int max = 0;
-        bool isDuplicated = false;
         int[] count = new int[1001];
 
-        foreach (int n in array)
-        {
-            count[n]++;
-        }
+        for (int i = 0; i < array.Length; i++)
+            count[array[i]]++;
+
+        int max = count.Max();
+        int answer = -1;
+        int maxCount = 0;
 
         for (int i = 0; i < count.Length; i++)
         {
-            if (count[i] > max)
+            if (count[i] == max)
             {
-                max = count[i];
                 answer = i;
-                isDuplicated = false;
-            }
-            else if (count[i] == max)
-            {
-                isDuplicated = true;
+                maxCount++;
             }
         }
 
-        if (isDuplicated)
+        if (maxCount > 1)
             return -1;
 
         return answer;
